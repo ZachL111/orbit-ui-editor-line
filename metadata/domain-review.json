@@ -1,0 +1,73 @@
+{
+  "repo": "orbit-ui-editor-line",
+  "language": "Lua",
+  "category": "Frontend apps",
+  "goal": "Develop a Lua command-oriented project for editor scenarios with round-trip fixtures, lossless normalization checks, and bounded memory input sets.",
+  "review_model": {
+    "terms": [
+      "view drift",
+      "state pressure",
+      "layout risk",
+      "interaction cost"
+    ],
+    "lanes": [
+      "ship",
+      "watch",
+      "hold"
+    ],
+    "score": "signal * 2 + slack + confidence - drag * 3",
+    "purpose": "surface the domain-specific cases that need the most careful review"
+  },
+  "cases": [
+    {
+      "name": "baseline",
+      "focus": "view drift",
+      "signal": 40,
+      "slack": 21,
+      "drag": 27,
+      "confidence": 60,
+      "score": 80,
+      "lane": "hold"
+    },
+    {
+      "name": "stress",
+      "focus": "state pressure",
+      "signal": 63,
+      "slack": 37,
+      "drag": 13,
+      "confidence": 86,
+      "score": 210,
+      "lane": "ship"
+    },
+    {
+      "name": "edge",
+      "focus": "layout risk",
+      "signal": 48,
+      "slack": 36,
+      "drag": 30,
+      "confidence": 67,
+      "score": 109,
+      "lane": "watch"
+    },
+    {
+      "name": "recovery",
+      "focus": "interaction cost",
+      "signal": 59,
+      "slack": 27,
+      "drag": 30,
+      "confidence": 75,
+      "score": 130,
+      "lane": "watch"
+    },
+    {
+      "name": "stale",
+      "focus": "view drift",
+      "signal": 73,
+      "slack": 24,
+      "drag": 32,
+      "confidence": 90,
+      "score": 164,
+      "lane": "ship"
+    }
+  ]
+}

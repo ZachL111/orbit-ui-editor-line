@@ -1,68 +1,40 @@
 # orbit-ui-editor-line
 
-`orbit-ui-editor-line` is a Lua project for Frontend apps. It turns develop a Lua command-oriented project for editor scenarios with round-trip fixtures, lossless normalization checks, and bounded memory input sets into a small local model with readable fixtures and a direct verification command.
+`orbit-ui-editor-line` explores frontend apps with a small Lua codebase and local fixtures. The technical goal is to develop a Lua command-oriented project for editor scenarios with round-trip fixtures, lossless normalization checks, and bounded memory input sets.
 
-## Reading Orbit UI Editor Line
+## Why This Exists
 
-Start with the README, then open `metadata/project.json` to check the constants behind the examples. After that, `fixtures/cases.csv` shows the compact path and `examples/extended_cases.csv` gives a wider look at the same rule.
+This is intentionally local and self-contained so it can be inspected without credentials, services, or seeded history.
 
-## Purpose
+## Orbit UI Editor Line Review Notes
 
-This is not a wrapper around a service. It is a self-contained project that shows how the model behaves when demand, capacity, latency, risk, and weight move in different directions.
+Start with `state pressure` and `view drift`. Those cases create the widest score spread in this repo, so they are the best quick check when the model changes.
 
-## Fixture Notes
+## Capabilities
 
-The examples are meant to be readable before they are exhaustive. They cover enough variation to show how latency and risk can pull a decision below the threshold.
+- `fixtures/domain_review.csv` adds cases for view drift and state pressure.
+- `metadata/domain-review.json` records the same cases in structured form.
+- `config/review-profile.json` captures the read order and the two review questions.
+- `examples/orbit-ui-editor-walkthrough.md` walks through the case spread.
+- The Lua code includes a review path for `state pressure` and `view drift`.
+- `docs/field-notes.md` explains the strongest and weakest cases.
 
-## Design Sketch
+## Implementation Shape
 
-The design is intentionally direct: parse or construct a signal, score it, classify it, and verify the expected branch. This makes the repository useful for studying frontend apps behavior without needing a service or database unless the language project itself is SQL. The Lua project keeps the module shape simple and validates behavior through a direct script.
+The fixture data drives the tests. The code stays thin, while `metadata/domain-review.json` and `config/review-profile.json` explain what each case is meant to protect.
 
-## What It Does
+The Lua code keeps the review rule close to the tests.
 
-- Models view models with deterministic scoring and explicit review decisions.
-- Uses fixture data to keep interaction state changes visible in code review.
-- Includes extended examples for layout checks, including `recovery` and `degraded`.
-- Documents fixture data tradeoffs in `docs/operations.md`.
-- Runs locally with a single verification command and no external credentials.
-
-## Usage
+## Local Usage
 
 ```powershell
 powershell -NoProfile -ExecutionPolicy Bypass -File scripts/verify.ps1
 ```
 
-This runs the language-level build or test path against the compact fixture set.
-
 ## Verification
 
-```powershell
-powershell -NoProfile -ExecutionPolicy Bypass -File scripts/audit.ps1
-```
+The verifier is intentionally local. It should fail if the fixture score math, lane assignment, or language-specific test drifts.
 
-The audit command checks repository structure and README constraints before it delegates to the verifier.
+## Roadmap
 
-## Files Worth Reading
-
-- `src`: primary implementation
-- `tests`: verification harness
-- `fixtures`: compact golden scenarios
-- `examples`: expanded scenario set
-- `metadata`: project constants and verification metadata
-- `docs`: operations and extension notes
-- `scripts`: local verification and audit commands
-
-## Next Directions
-
-- Add a comparison mode that shows how decisions change when one signal is adjusted.
-- Add a loader for `examples/extended_cases.csv` and promote selected cases into the language test suite.
-- Add a short report command that prints the score breakdown for a single scenario.
-- Add one more frontend apps fixture that focuses on a malformed or borderline input.
-
-## Limits
-
-The scoring model is simple by design. More domain-specific behavior should be added through explicit adapters or extra fixture classes rather than hidden constants.
-
-## Setup
-
-Install Lua and run the commands from the repository root. The project does not need credentials or a hosted service.
+The repository is intentionally scoped to local checks. I would expand it by adding adversarial fixtures before adding features.
